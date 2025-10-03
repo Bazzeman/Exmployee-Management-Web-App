@@ -7,18 +7,28 @@ The system is a **three-tier architecture**:
 - **Database (SQL)**: Stores user accounts, employee details, pay rates.
 
 ## Data Models
-**User**
-- userId (PK)
-- username
-- passwordHash
-- role (`Employee` | `Employer`)
-
-**Employee**
-- employeeId (PK)
-- userId (FK to User)
+**users** 
+- user_id (PK)
+- password_hash
+- role (`Employee`,`Employer`)
 - name
-- department
-- payRate
+- email
+- phone
+- creation_timestamp
+
+**employee**
+- employee_id (PK)
+- user_id (FK)
+- department (`ICT`,`HR`, `Engineering`)
+- position
+- pay_rate
+
+**audit_logs**
+- log_id (PK)
+- employer_id (FK)
+- action (e.g. `ADD_EMPLOYEE`, `UPDATE_PAYRATE`)
+- employee_id (FK)
+- timestamp
 
 ## API Endpoints
 - `POST /api/auth/login` → login, returns JWT
